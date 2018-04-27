@@ -16,7 +16,7 @@ public:
 	void vSetDistance(double dDistance);
 	bool bWasChanged();
 	void vSetChanged(bool bChanged);
-	// TODO implement mutation
+	void vMutation();
 	int iTotalSum() const;
 
 	int iTotalProduct() const;

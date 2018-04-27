@@ -5,8 +5,9 @@
 CPGAlg::CPGAlg(int iProblemSize, int iExpectedSum, int iExpectedProduct) :
 pc_best_cards_set(nullptr), i_problem_size(iProblemSize), i_expected_sum(iExpectedSum),
 i_expected_product(iExpectedProduct), d_current_min_distance(INFINITY),
-c_gen(c_rd), c_rnd_double_gen(0, 1)
+c_gen(c_rd()), c_rnd_double_gen(0, 1)
 {
+	v_initialize();
 }
 
 CPGAlg::~CPGAlg()
@@ -16,9 +17,6 @@ CPGAlg::~CPGAlg()
 
 CCardBits CPGAlg::cRunIteration()
 {
-	v_initialize();
-	v_evaluate_all();
-
 	v_selection();
 	v_parents_crossover();
 	v_mutation();
@@ -33,6 +31,7 @@ void CPGAlg::v_initialize()
 	{
 		v_population.push_back(new CCardBits(i_problem_size));
 	}
+	v_evaluate_all();
 }
 
 void CPGAlg::v_evaluate_all()
@@ -69,7 +68,7 @@ void CPGAlg::v_selection()
 	int i_selected_index;
 	int i_population_size = v_population.size();
 	std::random_device c_random_device;
-	std::mt19937 c_generator(c_random_device);
+	std::mt19937 c_generator(c_random_device());
 	std::uniform_int_distribution<> c_rnd_gen(0, i_population_size - 1);
 	for(int i=0; i<i_population_size; ++i)
 	{
@@ -92,15 +91,16 @@ void CPGAlg::v_selection()
 void CPGAlg::v_parents_crossover()
 {
 	v_delete_population();
+	int i_half_population = v_parents.size() / 2;
 	double d_rnd;
-	for (int i = 0; i < i_POPULATION_SIZE; ++i)
+	for (int i = 0; i < i_half_population; ++i)
 	{
 		CCardBits * pc_parent_1 = v_parents[i];
 		CCardBits * pc_parent_2 = v_parents[i_POPULATION_SIZE - 1 - i];
 		d_rnd = c_rnd_double_gen(c_gen);
 		if(d_rnd >= 1.0 - d_CROSSOVER_PROB)
 		{
-			CCardBits::vCrossOver(*pc_parent_1, *pc_parent_2);  //todo
+			CCardBits::vCrossOver(*pc_parent_1, *pc_parent_2);
 			pc_parent_1->vSetChanged(true);
 			pc_parent_2->vSetChanged(true);
 		}
@@ -123,7 +123,7 @@ void CPGAlg::v_mutation()
 			v_population[i]->vSetChanged(true);
 		}
 		else
-			v_population[i]->vSetChanged(v_population[i]->bWasChanged() || false);
+			v_population[i]->vSetChanged(v_population[i]->bWasChanged() | false);
 	}
 }
 
@@ -135,6 +135,7 @@ void CPGAlg::v_delete_population()
 		delete v_population[i];
 	}
 	v_population.clear();
+	int x = 5;
 }
 
 

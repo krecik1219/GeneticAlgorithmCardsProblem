@@ -1,7 +1,7 @@
 #include "CCardBits.h"
 
 
-CCardBits::CCardBits(int iSize) : i_size(iSize), b_was_changed(true), v_bits(i_size)
+CCardBits::CCardBits(int iSize) : i_size(iSize), d_distance(INFINITY), b_was_changed(true), v_bits(i_size)
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -14,7 +14,7 @@ CCardBits::CCardBits(int iSize) : i_size(iSize), b_was_changed(true), v_bits(i_s
 void CCardBits::vCrossOver(CCardBits & cFirst, CCardBits & cOther)
 {
 	std::random_device c_random_device;
-	std::mt19937 c_generator(c_random_device);
+	std::mt19937 c_generator(c_random_device());
 	std::uniform_int_distribution<> c_rnd_gen(0, cFirst.i_size - 2);
 
 	int i_cross_posi = c_rnd_gen(c_generator);
@@ -52,6 +52,11 @@ bool CCardBits::bWasChanged()
 void CCardBits::vSetChanged(bool bChanged)
 {
 	b_was_changed = bChanged;
+}
+
+void CCardBits::vMutation()
+{
+	// TODO
 }
 
 int CCardBits::iTotalSum() const

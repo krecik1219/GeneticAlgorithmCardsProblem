@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="CCardBits.cpp" />
     <ClCompile Include="CPGAlg.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCardBits.h" />
