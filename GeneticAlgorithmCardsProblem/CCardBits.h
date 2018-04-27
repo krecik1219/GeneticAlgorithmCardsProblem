@@ -10,7 +10,7 @@ class CCardBits
 public:
 	CCardBits(int iSize);
 
-	static void vCrossOver(CCardBits & cFirst, CCardBits & cOther, int iCrossPosi);
+	static void vCrossOver(CCardBits & cFirst, CCardBits & cOther);  // implement random point and crossover
 
 	double dGetDistance();
 	void vSetDistance(double dDistance);

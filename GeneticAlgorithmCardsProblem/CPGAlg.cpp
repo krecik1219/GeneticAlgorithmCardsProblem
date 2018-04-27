@@ -101,6 +101,8 @@ void CPGAlg::v_parents_crossover()
 		if(d_rnd >= 1.0 - d_CROSSOVER_PROB)
 		{
 			CCardBits::vCrossOver(*pc_parent_1, *pc_parent_2);  //todo
+			pc_parent_1->vSetChanged(true);
+			pc_parent_2->vSetChanged(true);
 		}
 		v_population.push_back(pc_parent_1);
 		v_population.push_back(pc_parent_2);
@@ -115,10 +117,13 @@ void CPGAlg::v_mutation()
 	for(int i = 0; i<i_population_size; ++i)
 	{
 		d_rnd = c_rnd_double_gen(c_gen);
-		if(d_rnd >= 1.0 - d_MUTATION_PROB)
+		if (d_rnd >= 1.0 - d_MUTATION_PROB)
 		{
 			v_population[i]->vMutation();
+			v_population[i]->vSetChanged(true);
 		}
+		else
+			v_population[i]->vSetChanged(v_population[i]->bWasChanged() || false);
 	}
 }
 
