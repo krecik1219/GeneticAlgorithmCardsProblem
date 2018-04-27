@@ -8,9 +8,9 @@ class CCardBits
 {
 	friend std::ostream & operator << (std::ostream & out, const CCardBits & cBits);
 public:
-	CCardBits(int i_size);
+	CCardBits(int iSize);
 
-	static void vCrossOver(CCardBits & c_first, CCardBits & c_other, int i_cross_posi);
+	static void vCrossOver(CCardBits & cFirst, CCardBits & cOther, int iCrossPosi);
 
 	double dGetDistance();
 	void vSetDistance(double dDistance);

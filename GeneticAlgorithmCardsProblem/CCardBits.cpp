@@ -1,7 +1,7 @@
 #include "CCardBits.h"
 
 
-CCardBits::CCardBits(int i_size) : i_size(i_size), b_was_changed(true), v_bits(i_size)
+CCardBits::CCardBits(int iSize) : i_size(i_size), b_was_changed(true), v_bits(i_size)
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -11,19 +11,19 @@ CCardBits::CCardBits(int i_size) : i_size(i_size), b_was_changed(true), v_bits(i
 		v_bits[ii] = d(gen);
 } // CCardBits(int i_size) : i_size(i_size) 
 
-void CCardBits::vCrossOver(CCardBits & c_first, CCardBits & c_other, int i_cross_posi)
+void CCardBits::vCrossOver(CCardBits & cFirst, CCardBits & cOther, int iCrossPosi)
 {
-	vector<bool> v_temp(i_cross_posi);
+	vector<bool> v_temp(iCrossPosi);
 
-	for (int ii = 0; ii < i_cross_posi; ++ii)
-		v_temp[ii] = c_first.v_bits[ii];
+	for (int ii = 0; ii < iCrossPosi; ++ii)
+		v_temp[ii] = cFirst.v_bits[ii];
 
 
-	int i_posi = c_other.v_bits.size() - i_cross_posi;
-	for (int ii = 0; ii < i_cross_posi; ++ii)
+	int i_posi = cOther.v_bits.size() - iCrossPosi;
+	for (int ii = 0; ii < iCrossPosi; ++ii)
 	{
-		c_first.v_bits[ii] = c_other.v_bits[i_posi];
-		c_other.v_bits[i_posi] = v_temp[ii];
+		cFirst.v_bits[ii] = cOther.v_bits[i_posi];
+		cOther.v_bits[i_posi] = v_temp[ii];
 		++i_posi;
 	} // for (int ii = 0; ii < i_cross_posi; ++ii)
 } // void cCrossOver(CCardBits & c_first, CCardBits & c_other, int i_cross_posi)
