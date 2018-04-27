@@ -2,7 +2,7 @@
 
 
 
-CPGAlg::CPGAlg(int iProblemSize, int iExpectedSum, int iExpectedProduct) :
+CPGAlg::CPGAlg(int iProblemSize, long long iExpectedSum, long long iExpectedProduct) :
 pc_best_cards_set(nullptr), i_problem_size(iProblemSize), i_expected_sum(iExpectedSum),
 i_expected_product(iExpectedProduct), d_current_min_distance(INFINITY),
 c_gen(c_rd()), c_rnd_double_gen(0, 1)
@@ -55,10 +55,10 @@ void CPGAlg::v_evaluate_all()
 
 void CPGAlg::v_evaluate_single(CCardBits * pcCard)
 {
-	int i_sum = pcCard->iTotalSum();
-	int i_product = pcCard->iTotalProduct();
+	long double i_sum = pcCard->iTotalSum();
+	long double i_product = pcCard->iTotalProduct();
 	
-	int i_distance = (i_expected_sum - i_sum) * (i_expected_sum - i_sum) + (i_expected_product - i_product) * (i_expected_product - i_product);
+	long double i_distance = (i_expected_sum - i_sum) * (i_expected_sum - i_sum) + (i_expected_product - i_product) * (i_expected_product - i_product);
 
 	pcCard->vSetDistance(i_distance);
 }

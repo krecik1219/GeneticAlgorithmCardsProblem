@@ -8,12 +8,12 @@ class CCardBits;
 static const int i_ITERATIONS_NUM = 100;  // important, pg parameter
 static const int i_POPULATION_SIZE = 100;  // important, pg parameter
 static const double d_CROSSOVER_PROB = 0.55;
-static const double d_MUTATION_PROB = 0.3;
+static const double d_MUTATION_PROB = 0.5;
 
 class CPGAlg
 {
 public:
-	CPGAlg(int iProblemSize, int iExpectedSum, int iExpectedProduct);
+	CPGAlg(int iProblemSize, long long iExpectedSum, long long iExpectedProduct);
 	~CPGAlg();
 	
 	CCardBits cRunIteration();

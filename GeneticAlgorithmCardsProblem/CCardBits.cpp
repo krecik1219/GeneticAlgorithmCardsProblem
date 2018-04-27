@@ -1,4 +1,5 @@
 #include "CCardBits.h"
+#include <unordered_set>
 
 
 CCardBits::CCardBits(int iSize) : i_size(iSize), d_distance(INFINITY), b_was_changed(true), v_bits(i_size)
@@ -34,12 +35,12 @@ void CCardBits::vCrossOver(CCardBits & cFirst, CCardBits & cOther)
 	} // for (int ii = 0; ii < i_cross_posi; ++ii)
 } // void cCrossOver(CCardBits & c_first, CCardBits & c_other, int i_cross_posi)
 
-double CCardBits::dGetDistance()
+long double CCardBits::dGetDistance()
 {
 	return d_distance;
 }
 
-void CCardBits::vSetDistance(double dDistance)
+void CCardBits::vSetDistance(long double dDistance)
 {
 	d_distance = dDistance;
 }
@@ -56,12 +57,28 @@ void CCardBits::vSetChanged(bool bChanged)
 
 void CCardBits::vMutation()
 {
-	// TODO
+	int i_mutations_number = ceil(0.4 * i_size);
+	std::random_device c_random_device;
+	std::mt19937 c_generator(c_random_device());
+	std::uniform_int_distribution<> c_rnd_gen(0, i_size - 1);
+	int i_rnd_index;
+	std::unordered_set<int> c_indices_set;
+	std::unordered_set<int>::iterator found;
+	for(int i=0; i<i_mutations_number; ++i)
+	{
+		do   // eee halt problem?
+		{
+			i_rnd_index = c_rnd_gen(c_generator);
+			found = c_indices_set.find(i_rnd_index);
+		} while (found != c_indices_set.end());  // while index exists in set of indices
+		c_indices_set.insert(i_rnd_index);
+		v_bits[i_rnd_index] = v_bits[i_rnd_index] ^ 1;
+	}
 }
 
-int CCardBits::iTotalSum() const
+long long CCardBits::iTotalSum() const
 {
-	int i_total_sum = 0;
+	long long i_total_sum = 0;
 	for (int ii = 0; ii < i_size; ++ii)
 	{
 		if (!v_bits[ii])
@@ -71,9 +88,9 @@ int CCardBits::iTotalSum() const
 	return i_total_sum;
 } // int iTotalSum
 
-int CCardBits::iTotalProduct() const
+long long CCardBits::iTotalProduct() const
 {
-	int i_total_product = 0;
+	long long i_total_product = 0;
 	for (int ii = 0; ii < i_size; ++ii)
 	{
 		if (v_bits[ii])
@@ -98,7 +115,7 @@ std::ostream & operator << (std::ostream & out, const CCardBits & cBits)
 		else
 			out << "1 ";
 	}
-	out << "} Size: " << cBits.i_size << " Sum: " << cBits.iTotalSum() << " Product: " << cBits.iTotalProduct() << std::endl;
+	out << "} Size: " << cBits.i_size << " Sum: " << cBits.iTotalSum() << " Product: " << cBits.iTotalProduct() << " Distance: "<<cBits.d_distance<< std::endl;
 
 	return out;
 }
