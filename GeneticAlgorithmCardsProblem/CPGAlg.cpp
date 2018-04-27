@@ -41,7 +41,7 @@ void CPGAlg::v_evaluate_all()
 	for(int i=0; i<i_pop_size; ++i)
 	{
 		CCardBits * pc_card = v_population[i];
-		if(pc_card->bHasChanged())
+		if(pc_card->bWasChanged())
 		{
 			v_evaluate_single(pc_card);
 			if(pc_card->dGetDistance() < d_current_min_distance)
@@ -79,7 +79,7 @@ void CPGAlg::v_selection()
 		CCardBits * pc_selected_2 = v_population[i_selected_index];
 		if (pc_selected_1->dGetDistance() <= pc_selected_2->dGetDistance())
 		{
-			v_parents.push_back(new CCardBits(*pc_selected_1);
+			v_parents.push_back(new CCardBits(*pc_selected_1));
 		}
 		else
 		{
@@ -100,7 +100,7 @@ void CPGAlg::v_parents_crossover()
 		d_rnd = c_rnd_double_gen(c_gen);
 		if(d_rnd >= 1.0 - d_CROSSOVER_PROB)
 		{
-			CCardBits::vCrossOver(*pc_parent_1, *pc_parent_2);
+			CCardBits::vCrossOver(*pc_parent_1, *pc_parent_2);  //todo
 		}
 		v_population.push_back(pc_parent_1);
 		v_population.push_back(pc_parent_2);

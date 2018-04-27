@@ -10,10 +10,13 @@ class CCardBits
 public:
 	CCardBits(int i_size);
 
-	void vCrossOver(CCardBits & c_first, CCardBits & c_other, int i_cross_posi);
+	static void vCrossOver(CCardBits & c_first, CCardBits & c_other, int i_cross_posi);
 
 	double dGetDistance();
-
+	void vSetDistance(double dDistance);
+	bool bWasChanged();
+	void vSetChanged(bool bChanged);
+	// TODO implement mutation
 	int iTotalSum() const;
 
 	int iTotalProduct() const;
