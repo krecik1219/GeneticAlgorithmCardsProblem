@@ -5,8 +5,8 @@
 
 class CCardBits;
 
-static const int i_ITERATIONS_NUM = 100;  // important, pg parameter
-static const int i_POPULATION_SIZE = 100;  // important, pg parameter
+static const int i_ITERATIONS_NUM = 1000;  // important, pg parameter
+static const int i_POPULATION_SIZE = 1000;  // important, pg parameter
 static const double d_CROSSOVER_PROB = 0.55;
 static const double d_MUTATION_PROB = 0.5;
 
